@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"slices"
+	"sort"
 )
 
 func intersectWithMap(s1 []int, s2 []int) []int {
@@ -61,8 +62,20 @@ func main() {
 	slice1 := []int{1, 1, 2, 1, 4, 3, 5, 6, 6, 6, 6, 6}
 	slice2 := []int{1, 5, 6, 3, 9, 10, 6, 6, 5, 1}
 
-	//intersection := intersectWithMap(slice1, slice2)
-	intersection := intersectWithSort(slice1, slice2)
+	intersection1 := intersectWithMap(slice1, slice2)
 
-	fmt.Println(intersection)
+	intersection2 := intersectWithSort(slice1, slice2)
+
+	sort.Ints(intersection1)
+	sort.Ints(intersection2)
+
+	isEqual := slices.Equal(intersection1, intersection2)
+
+	fmt.Printf("intersectWithMap: %v\n"+
+		"intersectWithSort: %v\n"+
+		"isEqual = %t\n",
+		intersection1,
+		intersection2,
+		isEqual,
+	)
 }
