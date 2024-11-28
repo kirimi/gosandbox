@@ -6,10 +6,10 @@ import (
 	"sort"
 )
 
-func intersectWithMap(s1 []int, s2 []int) []int {
+func intersectWithMap(s1, s2 []int) []int {
 	result := make([]int, 0)
 
-	counter := make(map[int]int)
+	counter := make(map[int]int, min(len(s1), len(s2)))
 
 	for _, val := range s1 {
 		_, exist := counter[val]
@@ -31,12 +31,12 @@ func intersectWithMap(s1 []int, s2 []int) []int {
 	return result
 }
 
-func intersectWithSort(s1 []int, s2 []int) []int {
+func intersectWithSort(s1, s2 []int) []int {
 	result := make([]int, 0)
 	slices.Sort(s1)
 	slices.Sort(s2)
 
-	maxIndex := min(len(s1), len(s2))
+	maxIndex := min(len(s1)-1, len(s2)-1)
 	p1, p2 := 0, 0
 	for {
 		if s1[p1] == s2[p2] {
