@@ -1,0 +1,7 @@
+.env
+/.idea/*
+/.idea/backend.iml
+/.idea/golinter.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml

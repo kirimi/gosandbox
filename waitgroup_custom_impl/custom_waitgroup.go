@@ -1,4 +1,4 @@
-package main
+package waitgroup_custom_impl
 
 import (
 	"fmt"
