@@ -9,36 +9,39 @@ func main() {
 	wg := &sync.WaitGroup{}
 
 	resCh := make(chan int)
-	lastValueCh := make(chan int)
+	currValueCh := make(chan int)
 
-	first, last := 1, 100
-	for i := first; i <= last; i++ {
+	firstValue, lastValue := 1, 100
+	for i := firstValue; i <= lastValue; i++ {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
 			for {
 				select {
-				case lastV := <-lastValueCh:
-					if i == lastV+1 {
+				case currValue := <-currValueCh:
+					nextValue := currValue + 1
+					if i == nextValue {
 						resCh <- i
-						if i < last {
-							lastValueCh <- i
+						if i < lastValue {
+							currValueCh <- i
 						}
 						return
 					}
 
-					lastValueCh <- lastV
+					currValueCh <- currValue
 				}
 			}
 		}(i)
 	}
 
 	go func() {
-		lastValueCh <- first - 1
 		wg.Wait()
 		close(resCh)
-		close(lastValueCh)
+		close(currValueCh)
 	}()
+
+	// run
+	currValueCh <- firstValue - 1
 
 	for val := range resCh {
 		fmt.Printf("%d ", val)
