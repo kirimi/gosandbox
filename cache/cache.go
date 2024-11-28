@@ -2,7 +2,7 @@ package cache
 
 import "errors"
 
-var ErrNotFound = errors.New("value not found")
+var ErrNotFound = errors.New("value  not found")
 
 type Cache interface {
 	Set(key, value string) error
