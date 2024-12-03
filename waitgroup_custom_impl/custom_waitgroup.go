@@ -27,6 +27,7 @@ func (w *MyWg) done() {
 	w.count--
 	fmt.Printf("done, Counter = %d\n", w.count)
 	w.mu.Unlock()
+
 	if w.count <= 0 {
 		w.doneChan <- true
 	}
